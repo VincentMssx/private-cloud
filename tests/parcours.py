@@ -74,8 +74,9 @@ def run():
     print("OK · import, lecture, isolation, indexation, doublon, restauration et quota")
 
 
-try:
-    run()
-finally:
-    for account in reversed(created):
-        occ("user:delete", account)
+if __name__ == '__main__':
+    try:
+        run()
+    finally:
+        for account in reversed(created):
+            occ("user:delete", account)

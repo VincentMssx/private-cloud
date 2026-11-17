@@ -6,7 +6,12 @@ if [[ ! -e .env ]]; then
   (set -C; { printf 'ADMIN_PASSWORD=%s\n' "$(openssl rand -hex 24)"; printf 'DB_PASSWORD=%s\n' "$(openssl rand -hex 24)"; } > .env)
 fi
 mkdir -p .cache
-docker compose up -d app
+build_args=()
+if [[ -n "${CODEX_PROXY_CERT:-}" ]]; then
+  build_args+=(--secret id=ca_bundle,src=/etc/ssl/certs/ca-certificates.crt)
+fi
+docker build "${build_args[@]}" -t famille-analysis:local worker
+docker compose up -d --no-build app analysis
 occ() { docker compose exec -T -u www-data app php occ "$@"; }
 for ((i=0;i<180;i++)); do
   if occ status --output=json 2>/dev/null | python3 -c 'import json,sys; sys.exit(not json.load(sys.stdin)["installed"])' 2>/dev/null; then break; fi
@@ -23,6 +28,8 @@ while read -r app digest url; do
   docker compose exec -T app tar -xzf - -C /var/www/html/custom_apps --no-same-owner < "$archive"
   occ app:enable "$app" < /dev/null
 done < scripts/apps.lock
+tar --mode='u+rwX,go+rX' -C apps -cf - familytri | docker compose exec -T app tar -xf - -C /var/www/html/custom_apps --no-same-owner
+occ app:enable familytri
 occ app:enable twofactor_totp
 occ app:enable files_trashbin
 occ config:system:set memories.timeline.default_path --value=/

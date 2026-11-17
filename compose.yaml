@@ -13,6 +13,11 @@ x-nextcloud: &nextcloud
   volumes:
     - nextcloud:/var/www/html
 services:
+  analysis:
+    image: famille-analysis:local
+    build: ./worker
+    mem_limit: 384m
+    cpus: 1
   db:
     image: postgres:16-alpine@sha256:81e77a4833487b8132fe4b00bedd39dc3f74b8641e387f19312a48f7de218c2e
     environment:

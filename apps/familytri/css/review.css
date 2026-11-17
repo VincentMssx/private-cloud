@@ -1,0 +1,5 @@
+#family-review{overflow:auto;width:100%;padding:clamp(16px,4vw,48px);background:var(--color-main-background)}
+.tri h1{font-size:2rem;font-weight:650}.tri h2{font-size:1.25rem;font-weight:600}
+.tri p,.tri h1,.tri h2{margin-block:0 12px}.serie{max-width:980px;border-top:1px solid var(--color-border);padding-block:22px}
+.photos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(190px,100%),1fr));gap:16px}.photos figure{margin:0;max-width:380px}.photos img{display:block;width:100%;height:185px;object-fit:contain;background:var(--color-background-dark);border-radius:8px}
+.photos figcaption{padding-block:8px;overflow-wrap:anywhere}.photos input{vertical-align:middle}.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
