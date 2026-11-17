@@ -1,0 +1,6 @@
+.env
+.env.*
+.cache/
+fixtures-private/
+backups/
+__pycache__/

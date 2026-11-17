@@ -1,0 +1,16 @@
+name: Validation locale
+on: [pull_request, push, workflow_dispatch]
+permissions:
+  contents: read
+jobs:
+  parcours:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+      - name: Installer et configurer les services
+        run: scripts/local.sh
+      - name: Vérifier les parcours sur deux comptes temporaires
+        run: python3 tests/parcours.py

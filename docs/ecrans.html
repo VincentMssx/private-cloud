@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="fr"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cloud familial · maquette des trois écrans</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f5f0;color:#182a26;font:16px/1.5 system-ui,sans-serif}header,main{max-width:960px;margin:auto;padding:1.5rem}nav{display:flex;gap:1.2rem;flex-wrap:wrap}nav a{color:#12664f}section{background:white;border:1px solid #d8e2da;border-radius:12px;padding:clamp(1rem,4vw,2rem);margin:0 0 2rem}h1,h2{line-height:1.2}img{width:100%;border-radius:6px}figure{margin:0}figure+figure img{filter:blur(2px)}.pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.action{display:inline-block;background:#155a49;color:white;border-radius:6px;padding:.4rem .8rem}li{padding:.5rem 0;border-bottom:1px solid #eee}th,td{text-align:left;padding:.4rem}.scroll{overflow-x:auto}
+</style>
+<header><h1>Cloud familial</h1><p>Maquette · données fictives</p><nav><a href="#fichiers">Fichiers</a><a href="#tri">Trier mes photos</a><a href="#admin">Administration</a></nav></header>
+<main><section id="fichiers"><h2>Mes fichiers</h2><p>Mes fichiers › Documents</p><span class="action">Importer</span>　Nouveau dossier
+<ul><li>📁 Vacances</li><li>📁 Maison</li><li>Inventaire.pdf</li></ul></section>
+<section id="tri"><h2>Trier mes photos</h2><p>2020 › Série du 6 mai · 2 photos similaires</p><div class="pair">
+<figure><img src="../tests/mire.jpg" alt="Mire aux contours nets"><figcaption><b>Conserver</b><br>Contours plus nets dans cette série.</figcaption></figure>
+<figure><img src="../tests/mire.jpg" alt="Même mire avec un flou simulé"><figcaption><label><input type="checkbox" checked> Mettre à la corbeille</label><br>Flou probable sur les contours.</figcaption></figure></div><p><span class="action">Confirmer la sélection</span>　 Ignorer cette série</p><small>Restauration possible pendant 30 jours.</small></section>
+<section id="admin"><h2>Administration</h2><p>Dernière sauvegarde réussie aujourd’hui à 03 h · 42 Go occupés sur le disque principal</p><div class="scroll"><table><thead><tr><th>Compte</th><th>Utilisé / quota</th><th>Fichiers / photos</th><th>Corbeille</th><th>En attente</th></tr></thead><tbody><tr><td>Camille</td><td>12 / 70 Go</td><td>860 / 600</td><td>1 Go</td><td>12</td></tr><tr><td>Lou</td><td>21 / 70 Go</td><td>1200 / 700</td><td>2 Go</td><td>0</td></tr></tbody></table></div><p><span class="action">Modifier un quota</span></p></section></main></html>

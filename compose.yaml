@@ -1,0 +1,45 @@
+name: nuage-famille
+x-nextcloud: &nextcloud
+  image: nextcloud:34.0.6-apache@sha256:3031e7f87baaceb863a755921ebf463bc26ea71855c07ad7858e2ae25a5a0ad7
+  environment:
+    POSTGRES_HOST: db
+    POSTGRES_DB: famille
+    POSTGRES_USER: famille
+    POSTGRES_PASSWORD: ${DB_PASSWORD:?Lancer scripts/local.sh}
+    REDIS_HOST: redis
+    NEXTCLOUD_ADMIN_USER: admin
+    NEXTCLOUD_ADMIN_PASSWORD: ${ADMIN_PASSWORD:?Lancer scripts/local.sh}
+    NEXTCLOUD_TRUSTED_DOMAINS: localhost 127.0.0.1
+  volumes:
+    - nextcloud:/var/www/html
+services:
+  db:
+    image: postgres:16-alpine@sha256:81e77a4833487b8132fe4b00bedd39dc3f74b8641e387f19312a48f7de218c2e
+    environment:
+      POSTGRES_DB: famille
+      POSTGRES_USER: famille
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?Lancer scripts/local.sh}
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "famille", "-d", "famille"]
+      interval: 5s
+      timeout: 3s
+      retries: 30
+  redis:
+    image: redis:7.4-alpine@sha256:7f7d30b7fdd09467bac58198a1f166dd69789d348d4fe859cccb20e0cf287fbe
+  app:
+    <<: *nextcloud
+    ports: ["127.0.0.1:8090:80"]
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_started
+  cron:
+    <<: *nextcloud
+    entrypoint: /cron.sh
+    depends_on: [app]
+volumes:
+  db:
+  nextcloud:

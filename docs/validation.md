@@ -1,0 +1,17 @@
+# Essai local du 17 novembre 2026
+
+La pile installée utilise Nextcloud 34.0.6, Memories 11.1.4, Duplicate Finder 1.10.18, Impersonate 5.0.0 et le fournisseur TOTP 16.0.0 livré avec Nextcloud. Les images Docker sont figées par empreinte dans Compose. Les archives des trois extensions supplémentaires sont vérifiées par SHA-256 avant extraction.
+
+| Essai exécuté | Observation |
+|---|---|
+| Deux comptes temporaires, un fichier privé | Le propriétaire a téléchargé les octets d’origine. L’autre compte a reçu HTTP 404. |
+| Deux JPEG identiques sous des noms différents | Le rapport de Duplicate Finder pour le propriétaire contenait les deux noms. |
+| MIME et miniatures | Une mire HEIC encodée en HEVC a été importée puis traitée par la commande de génération d’aperçu Nextcloud. |
+| Navigation sur écran étroit | Chromium en 390 × 844 a ouvert Fichiers et Memories après connexion. La galerie a affiché le 6 mai 2020 pour un JPEG EXIF importé en 2026. La racine privée est présélectionnée pour la galerie. |
+| Corbeille | La copie a été supprimée via WebDAV puis restaurée depuis la corbeille. La relecture a rendu les mêmes octets. Cron tourne avec la politique de conservation de 30 jours. |
+| Quota | Une tentative d’import de 2 Mio avec un quota de 1 Mo a reçu HTTP 507. |
+| Accès administrateur | Le formulaire de connexion a redirigé un nouveau membre du groupe admin vers l’enrôlement du second facteur. Le test a ensuite supprimé ce compte temporaire. |
+
+Les tests utilisent des mires synthétiques. Les essais sur de vrais téléphones et le jeu familial permettront de vérifier notamment les variantes HEIC d’iPhone. L’association de l’application TOTP personnelle, l’audit d’une session de dépannage, la purge effective à échéance et la restauration d’une sauvegarde indépendante restent à valider avant l’ouverture aux dix personnes.
+
+Les suggestions de flou, les groupes de clichés similaires, le classement d’une série et les métriques supplémentaires sont les développements prévus après ce jalon. Les quotas individuels sont déjà disponibles dans Nextcloud.
