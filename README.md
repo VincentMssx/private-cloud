@@ -30,3 +30,13 @@ Utiliser `docker compose exec -u www-data app php occ` pour les commandes Nextcl
 En cas de perte de l’application TOTP, utiliser un code de secours. Si tous les facteurs sont perdus, l’opérateur disposant du terminal serveur peut consulter `occ twofactorauth:state admin` et la commande `occ twofactorauth:disable --help` avant de réinitialiser le facteur concerné, puis réinscrire l’appareil. Réserver cet accès au responsable du serveur.
 
 Consulter les [résultats de l’essai local](docs/validation.md) et la [maquette des trois écrans](docs/ecrans.html). Ouvrir la maquette dans un navigateur pour comparer les vues à différentes largeurs.
+
+## Trier mes photos
+
+Ouvrir **Trier mes photos** dans la navigation Nextcloud après l’import. Memories indexe les originaux et cron analyse les aperçus, par lots de 32. Les services utilisent le CPU du serveur. L’image du worker se construit au lancement de `scripts/local.sh`. Elle contient Python et OpenCV.
+
+Les suggestions présentent les séries similaires et les clichés isolés à faible netteté. Le filtre par année utilise la date indexée par Memories. Toucher un aperçu ouvre son fichier. Cocher les photos, puis confirmer pour les déplacer vers la corbeille Nextcloud. « Ignorer cette suggestion » mémorise la décision pour cette version des fichiers. Une série dont tous les clichés sont cochés conserve le bouton de suppression désactivé.
+
+Le service d’analyse reçoit uniquement les aperçus via le réseau Docker. Il calcule une empreinte visuelle, la variation des contours et la proportion de pixels sombres ou clairs. L’extension rapproche deux cadrages si leur date est distante d’au plus 90 secondes et leur empreinte suffisamment proche. Les scores sont indicatifs. Une égalité laisse le choix à l’utilisateur. Les copies exactes peuvent aussi être consultées dans Duplicate Finder indépendamment de la date.
+
+Pour rejouer les tests, exécuter `python3 tests/parcours.py`, puis `docker compose exec -T analysis python -m unittest test_analysis`. Le test d’interface `python3 tests/tri.py` nécessite Playwright pour Python et Chromium ou Google Chrome. La variable `CHROME_BIN` permet d’indiquer le chemin du navigateur.

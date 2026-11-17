@@ -14,3 +14,13 @@ jobs:
         run: scripts/local.sh
       - name: Vérifier les parcours sur deux comptes temporaires
         run: python3 tests/parcours.py
+      - name: Vérifier les mesures OpenCV
+        run: docker compose exec -T analysis python -m unittest test_analysis
+      - name: Installer le pilote de navigateur
+        run: |
+          python3 -m venv /tmp/tri-browser
+          /tmp/tri-browser/bin/pip install playwright==1.56.0
+      - name: Comparer, ignorer et mettre à la corbeille dans le navigateur
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+        run: /tmp/tri-browser/bin/python tests/tri.py
