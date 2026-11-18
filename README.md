@@ -86,3 +86,5 @@ Les suggestions présentent les séries similaires et les clichés isolés à fa
 Le service d’analyse reçoit uniquement les aperçus via le réseau Docker. Il calcule une empreinte visuelle, la variation des contours et la proportion de pixels sombres ou clairs. L’extension rapproche deux cadrages si leur date est distante d’au plus 90 secondes et leur empreinte suffisamment proche. Les scores sont indicatifs. Une égalité laisse le choix à l’utilisateur. Les copies exactes peuvent aussi être consultées dans Duplicate Finder indépendamment de la date.
 
 Pour rejouer les tests, exécuter `python3 tests/parcours.py`, puis `docker compose exec -T analysis python -m unittest test_analysis`. Le test d’interface `python3 tests/tri.py` nécessite Playwright pour Python et Chromium ou Google Chrome. La variable `CHROME_BIN` permet d’indiquer le chemin du navigateur.
+
+Le thème **Maison** s’applique à la connexion et à la navigation de Nextcloud. Dans **Trier mes photos**, deux clichés restent côte à côte sur téléphone. Le [guide de calibrage](docs/calibrage.md) permet de mesurer les regroupements, les alertes de flou et les choix à conserver sur ses propres photos.
