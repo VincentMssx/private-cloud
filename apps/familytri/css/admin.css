@@ -1,0 +1,13 @@
+#family-admin {max-width: 1120px}
+#family-admin > p {max-width: 74ch; margin-bottom: 12px}
+.family-grid {display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,280px),1fr)); gap: 16px}
+.family-account {border: 1px solid var(--color-border); border-radius: 12px; padding: 16px; min-width: 0; overflow-wrap: anywhere}
+.family-account h3 {margin: 0; font-weight: bold}
+.family-account dl {margin-block: 12px}
+.family-account dl div {display: flex; justify-content: space-between; gap: 12px}
+.family-account dd {margin: 0; font-variant-numeric: tabular-nums}
+.family-account summary {cursor: pointer}
+.family-quota {display: flex; flex-wrap: wrap; gap: 6px; align-items: end; margin-top: 8px}
+.family-quota label {display: grid}
+.family-quota input[type=number] {width: 7em}
+.family-status:not(:empty) {margin-top: 8px}

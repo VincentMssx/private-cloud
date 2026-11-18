@@ -29,6 +29,7 @@ while read -r app digest url; do
   occ app:enable "$app" < /dev/null
 done < scripts/apps.lock
 tar --mode='u+rwX,go+rX' -C apps -cf - familytri | docker compose exec -T app tar -xf - -C /var/www/html/custom_apps --no-same-owner
+occ upgrade --no-interaction
 occ app:enable familytri
 occ app:enable twofactor_totp
 occ app:enable files_trashbin

@@ -24,3 +24,7 @@ jobs:
         env:
           CHROME_BIN: /usr/bin/google-chrome
         run: /tmp/tri-browser/bin/python tests/tri.py
+      - name: Vérifier les espaces familiaux et les quotas
+        env:
+          CHROME_BIN: /usr/bin/google-chrome
+        run: /tmp/tri-browser/bin/python tests/admin.py
