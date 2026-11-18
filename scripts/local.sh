@@ -31,6 +31,11 @@ done < scripts/apps.lock
 tar --mode='u+rwX,go+rX' -C apps -cf - familytri | docker compose exec -T app tar -xf - -C /var/www/html/custom_apps --no-same-owner
 occ upgrade --no-interaction
 occ app:enable familytri
+occ theming:config name Maison
+occ theming:config primary_color '#245d50'
+occ theming:config background_color '#245d50'
+occ theming:config background backgroundColor
+occ theming:config logo /var/www/html/custom_apps/familytri/img/maison.png
 occ app:enable twofactor_totp
 occ app:enable files_trashbin
 occ config:system:set memories.timeline.default_path --value=/

@@ -4,6 +4,11 @@ style('familytri', 'review');
 $url = $_['url'];
 ?>
 <main class="tri" id="family-review" data-ignore="<?php p($url->linkToRoute('familytri.page.ignore')); ?>">
+<nav class="maison-nav" aria-label="Espace personnel">
+<a href="<?php p($url->linkToRoute('files.view.index')); ?>">Mes fichiers</a>
+<a href="<?php p($url->linkToRoute('memories.page.main')); ?>">Photos</a>
+<a aria-current="page" href="<?php p($url->linkToRoute('familytri.page.index')); ?>">Trier mes photos</a>
+</nav>
 <h1>Trier mes photos</h1>
 <form method="get"><label>Année <select name="year"><option value="">Toutes</option>
 <?php foreach ($_['years'] as $year): ?><option <?php if ($year === $_['year']) echo 'selected'; ?>><?php p($year); ?></option><?php endforeach; ?>
@@ -25,7 +30,7 @@ $url = $_['url'];
 ?>
 <figure><a href="<?php p($url->linkToRoute('files.view.showFile',['fileid'=>$photo['fileid']])); ?>"><img loading="lazy" alt="<?php p(basename($path)); ?>" src="<?php p($preview); ?>"></a>
 <figcaption><strong><?php p(basename($path)); ?></strong>
-<?php if ($group['best'] === $photo['fileid']): ?><p>À conserver en priorité selon la netteté et l’exposition mesurées.</p><?php endif; ?>
+<?php if ($group['best'] === $photo['fileid']): ?><p class="keeper">À conserver en priorité selon la netteté et l’exposition mesurées.</p><?php endif; ?>
 <p><?php p($photo['sharp'] < \OCA\FamilyTri\Service\Suggestions::LOW_SHARPNESS ? 'Flou possible' : 'Contours marqués'); ?> · <?php p(round(100*$photo['clipped'])); ?> % de pixels très sombres ou très clairs</p>
 <label><input type="checkbox" data-url="<?php p($dav); ?>" data-etag="<?php p($photo['etag']); ?>"> Mettre à la corbeille</label></figcaption></figure>
 <?php endforeach; ?></div>

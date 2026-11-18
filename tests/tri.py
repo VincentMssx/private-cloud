@@ -3,6 +3,7 @@ import json
 import os
 import secrets
 import shutil
+from urllib.parse import urljoin
 from playwright.sync_api import sync_playwright, expect
 from parcours import BASE, ROOT, occ, dav, password
 
@@ -44,6 +45,10 @@ def test_review():
         expect(section.get_by_text("seconde.jpg", exact=True)).to_be_visible()
         expect(section.get_by_text("Flou possible", exact=False)).to_be_visible()
         dav(owner, "DELETE", base+"prise.jpg", [412], **{"If-Match": '"version-obsolete"'})
+        boxes = section.locator("figure").evaluate_all("els => els.slice(0,2).map(el=>el.getBoundingClientRect().top)")
+        assert len(boxes) == 2 and abs(boxes[0] - boxes[1]) < 2
+        for link in page.locator(".maison-nav a").all():
+            assert page.request.get(urljoin(page.url, link.get_attribute("href"))).ok
         empty = login(browser, other)
         expect(empty.locator(".serie")).to_have_count(0)
         check = section.locator("figure").filter(has_text="prise-copie.jpg").get_by_role("checkbox")
