@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Maison · Maquette</title>
+    <link rel="stylesheet" href="maison.css" />
+  </head>
+  <body>
+    <aside>
+      <div class="brand">
+        <svg
+          viewBox="0 0 32 28"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.3"
+          aria-hidden="true"
+        >
+          <path d="M2 10h12l7-7 9 8v14H2z" /></svg
+        >Maison
+      </div>
+      <button class="new" id="new">＋ Nouveau</button>
+      <nav aria-label="Navigation principale">
+        <button data-view="files">Fichiers</button
+        ><button data-view="photos">Photos</button
+        ><button data-view="review">Trier mes photos</button
+        ><button data-view="trash">Corbeille</button>
+      </nav>
+      <div class="usage">
+        12 Go sur 70 Go<progress
+          value="12"
+          max="70"
+          aria-label="Quota fictif"
+        ></progress>
+      </div>
+      <div class="workspace"><b class="initials">CM</b> Camille</div>
+    </aside>
+    <main>
+      <article id="view"></article>
+      <p id="status" role="status"></p>
+    </main>
+    <dialog id="modal">
+      <div id="details"></div>
+      <div class="actions"><button id="close">Fermer</button></div>
+    </dialog>
+    <script src="maison.js"></script>
+  </body>
+</html>
