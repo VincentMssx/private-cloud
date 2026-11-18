@@ -35,7 +35,7 @@ services:
     image: redis:7.4-alpine@sha256:7f7d30b7fdd09467bac58198a1f166dd69789d348d4fe859cccb20e0cf287fbe
   app:
     <<: *nextcloud
-    ports: ["127.0.0.1:8090:80"]
+    ports: ["127.0.0.1:${MAISON_LOCAL_PORT:-8090}:80"]
     depends_on:
       db:
         condition: service_healthy

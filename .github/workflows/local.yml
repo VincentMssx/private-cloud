@@ -1,11 +1,11 @@
 name: Validation locale
-on: [pull_request, push, workflow_dispatch]
+on: [pull_request, push, workflow_dispatch, workflow_call]
 permissions:
   contents: read
 jobs:
   parcours:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
         with:
@@ -28,3 +28,9 @@ jobs:
         env:
           CHROME_BIN: /usr/bin/google-chrome
         run: /tmp/tri-browser/bin/python tests/admin.py
+      - name: Vérifier le calibrage et la purge à trente jours
+        run: |
+          python3 tests/calibrage.py
+          python3 tests/corbeille.py
+      - name: Vérifier la restauration sur une instance isolée
+        run: python3 tests/reprise.py

@@ -27,9 +27,9 @@ def occ(*args, create=False):
     return result.stdout
 
 
-def dav(user, method, path, expected, data=None, **headers):
+def dav(user, method, path, expected, data=None, *, port=8090, **headers):
     auth = base64.b64encode(f"{user}:{password}".encode()).decode()
-    conn = http.client.HTTPConnection("127.0.0.1", 8090, timeout=40)
+    conn = http.client.HTTPConnection("127.0.0.1", port, timeout=40)
     try:
         conn.request(method, path, data, {"Authorization": "Basic " + auth, **headers})
         response = conn.getresponse()
