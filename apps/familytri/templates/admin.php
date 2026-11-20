@@ -8,6 +8,7 @@ style('familytri', 'admin');
 <?php if ($_['free'] !== false && $_['capacity'] !== false): ?>
 <p>Volume de données du serveur · <?php p(Util::humanFileSize($_['free'])); ?> libres sur <?php p(Util::humanFileSize($_['capacity'])); ?>.</p>
 <?php endif; ?>
+<p>Dernière sauvegarde vérifiée · <?php p($_['lastBackup'] ?: 'Aucune sauvegarde enregistrée'); ?></p>
 <p>Les originaux actifs et la corbeille sont comptés séparément. La file d’analyse concerne les photos déjà indexées par Memories. Les erreurs sont réessayées en arrière-plan.</p>
 <div class="family-grid">
 <?php foreach ($_['accounts'] as $a): ?>

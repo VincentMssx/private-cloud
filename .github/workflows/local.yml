@@ -32,5 +32,7 @@ jobs:
         run: |
           python3 tests/calibrage.py
           python3 tests/corbeille.py
+      - name: Vérifier HTTPS et la découverte DAV
+        run: tests/https.sh
       - name: Vérifier la restauration sur une instance isolée
         run: python3 tests/reprise.py

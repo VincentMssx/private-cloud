@@ -1,0 +1,13 @@
+[Unit]
+Description=Sauvegarde chiffrée de Maison
+After=docker.service network-online.target
+OnFailure=maison-alerte@%n.service
+
+[Service]
+Type=oneshot
+WorkingDirectory=/opt/maison/current
+EnvironmentFile=/etc/maison/backup.env
+EnvironmentFile=/etc/maison/cloud.env
+Environment=COMPOSE_FILE=compose.yaml:compose.cloud.yaml
+Environment=COMPOSE_PROJECT_NAME=nuage-famille
+ExecStart=/opt/maison/current/ops/backup.sh

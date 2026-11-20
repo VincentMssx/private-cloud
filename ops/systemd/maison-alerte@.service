@@ -1,0 +1,7 @@
+[Unit]
+Description=Avertir l’administrateur de Maison
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/maison/alert.env
+ExecStart=/opt/maison/current/ops/alerte.sh %i

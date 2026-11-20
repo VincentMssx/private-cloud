@@ -31,7 +31,7 @@ try:
         dav(uid, "PUT", files+"Carnet/"+name, [201], original)
     dav(uid, "DELETE", files+"Carnet/corbeille.bin", [204])
     occ("user:setting", uid, "files", "quota", "9 MB")
-    env_source = {**env, "MAISON_LOCAL_PORT": "8090"}
+    env_source = {**env, "MAISON_LOCAL_PORT": "8090", "MAISON_EXERCICE": "1"}
     for action in ("init", "backup"):
         subprocess.run(["ops/backup.sh", action], env=env_source, check=True)
     subprocess.run(["ops/monitor.sh"], env=env_source, check=True)

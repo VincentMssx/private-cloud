@@ -66,6 +66,7 @@ def run(owner, manager):
         field.press("Enter")
         page.wait_for_url("**/apps/**")
         page.goto(BASE + "/settings/admin/familytri")
+        expect(page.get_by_text("Dernière sauvegarde vérifiée", exact=False)).to_be_visible()
         card = page.locator(f".family-account[data-user='{owner}']")
         expect(card.locator('[data-metric=files]')).to_have_text("2")
         expect(card.locator('[data-metric=photos]')).to_have_text("1")

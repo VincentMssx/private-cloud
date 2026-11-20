@@ -29,7 +29,7 @@ Depuis un clone à la révision archivée, construire l’image d’analyse si n
 ops/restore.sh maison-reprise-exercice 18090
 ```
 
-Le script vérifie l’intégrité de tous les fichiers restaurés. Accéder à <http://127.0.0.1:18090> avec les identifiants sauvegardés. Les secrets restaurés et l’export SQL sont dans `backups/maison-reprise-exercice/`. L’accès HTTP est limité à la boucle locale, et cron reste arrêté sur cette copie. Pour cibler une date précise, passer en troisième argument l’identifiant affiché par `ops/backup.sh snapshots`. En cas de révision différente, le script affiche le commit à utiliser.
+Le script vérifie l’intégrité de tous les fichiers restaurés. Accéder à <http://127.0.0.1:18090> avec les identifiants sauvegardés. Les identifiants de la pile restaurée sont dans `backups/maison-reprise-exercice/.env`. Les rôles et la base sont transmis directement à PostgreSQL. L’accès HTTP est limité à la boucle locale, et cron reste arrêté sur cette copie. Pour cibler une date précise, passer en troisième argument l’identifiant affiché par `ops/backup.sh snapshots`. En cas de révision différente, le script affiche le commit à utiliser.
 
 Après vérification, arrêter la copie avec la commande suivante. Elle conserve les volumes pour un nouvel examen.
 

@@ -43,3 +43,6 @@ restart=0
 mounts=()
 restic check
 restic forget --host maison --tag famille --keep-daily 7 --keep-weekly 4 --prune
+if [[ "${MAISON_EXERCICE:-0}" != 1 ]]; then
+    docker compose exec -T -u www-data app php occ config:app:set familytri last_backup --value="$(date -u '+%Y-%m-%d %H:%M UTC')"
+fi

@@ -27,14 +27,13 @@ mkdir "$dir"
 restic dump --host maison --tag famille "$snapshot" /meta/stack.env > "$dir/.env"
 dc=(docker compose -f "$PWD/compose.yaml" --env-file "$dir/.env" -p "$project")
 "${dc[@]}" create --no-build db app
-mkdir "$dir/meta"
-mounts=(--mount "type=volume,src=${project}_nextcloud,dst=/restore/data" --mount "type=bind,src=$dir/meta,dst=/restore/meta")
-restic restore --host maison --tag famille "$snapshot" --target /restore --verify
-cmp "$dir/.env" "$dir/meta/stack.env"
+mounts=(--mount "type=volume,src=${project}_nextcloud,dst=/restore/data")
+restic restore --host maison --tag famille "$snapshot" --include /data --target /restore --verify
+mounts=()
 "${dc[@]}" up -d --wait db
 # Le cluster neuf possède déjà son rôle initial famille.
-sed '/^CREATE ROLE famille;$/d' "$dir/meta/roles.sql" | "${dc[@]}" exec -T db psql -X -q -v ON_ERROR_STOP=1 -U famille -d famille
-"${dc[@]}" exec -T db pg_restore --single-transaction --exit-on-error -U famille -d famille < "$dir/meta/database.dump"
+restic dump "$snapshot" /meta/roles.sql | sed '/^CREATE ROLE famille;$/d' | "${dc[@]}" exec -T db psql -X -q -v ON_ERROR_STOP=1 -U famille -d famille
+restic dump "$snapshot" /meta/database.dump | "${dc[@]}" exec -T db pg_restore --single-transaction --exit-on-error -U famille -d famille
 "${dc[@]}" up -d --no-build app analysis
 occ() { "${dc[@]}" exec -T -u www-data app php occ "$@"; }
 for ((i=0;i<90;i++)); do
@@ -49,4 +48,4 @@ occ config:system:set overwrite.cli.url --value="http://127.0.0.1:$MAISON_LOCAL_
 occ config:system:set trusted_domains 0 --value=127.0.0.1
 curl -fsS --retry 15 --retry-connrefused "http://127.0.0.1:$MAISON_LOCAL_PORT/status.php" >/dev/null
 printf 'Instance de reprise disponible sur http://127.0.0.1:%s ; version archivée ' "$MAISON_LOCAL_PORT"
-cat "$dir/meta/revision"
+printf '%s\n' "$revision"

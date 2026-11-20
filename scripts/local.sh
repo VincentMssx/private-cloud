@@ -20,7 +20,7 @@ done
 occ status -e
 while read -r app digest url; do
   archive=".cache/$app.tar.gz"
-  if [[ ! -s "$archive" ]]; then
+  if [[ ! -s "$archive" ]] || ! printf '%s  %s\n' "$digest" "$archive" | sha256sum --check --status; then
     curl -fsSL --retry 3 "$url" -o "$archive.part"
     mv "$archive.part" "$archive"
   fi

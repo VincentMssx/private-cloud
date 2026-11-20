@@ -88,3 +88,7 @@ Le service d’analyse reçoit uniquement les aperçus via le réseau Docker. Il
 Pour rejouer les tests, exécuter `python3 tests/parcours.py`, puis `docker compose exec -T analysis python -m unittest test_analysis`. Le test d’interface `python3 tests/tri.py` nécessite Playwright pour Python et Chromium ou Google Chrome. La variable `CHROME_BIN` permet d’indiquer le chemin du navigateur.
 
 Le thème **Maison** s’applique à la connexion et à la navigation de Nextcloud. Dans **Trier mes photos**, deux clichés restent côte à côte sur téléphone. Le [guide de calibrage](docs/calibrage.md) permet de mesurer les regroupements, les alertes de flou et les choix à conserver sur ses propres photos.
+
+## Sauvegarde et pilote cloud
+
+Le [guide de reprise](docs/reprise.md) explique comment conserver une sauvegarde chiffrée et vérifier une restauration sur son PC. Le [guide du pilote](docs/pilote.md) chiffre les 2 To, décrit le déploiement HTTPS depuis un tag GitHub, la planification quotidienne et le parcours des deux premiers membres.
